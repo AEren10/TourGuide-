@@ -1,0 +1,146 @@
+import { TourDetail } from '../types/tour.types';
+
+export const tourDetailsMock: Record<string, TourDetail> = {
+  '1': {
+    id: '1',
+    title: 'Historic Downtown Walking Tour',
+    description:
+      'Explore the historic heart of the city with guided stops at iconic landmarks. This tour takes you through centuries of history, architecture, and culture.',
+    location: 'Downtown District',
+    imageUrl: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad',
+    images: [
+      'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad',
+      'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df',
+      'https://images.unsplash.com/photo-1519501025264-65ba15a82390',
+      'https://images.unsplash.com/photo-1512453979798-5ea266f8880c',
+    ],
+    rating: 4.8,
+    reviewCount: 342,
+    price: 25,
+    duration: '2.5 hours',
+    distance: '3.2 km',
+    calories: '450 cal',
+    stopCount: 8,
+    badge: 'recommended',
+    itinerary: [
+      {
+        id: 'stop-1',
+        order: 1,
+        title: 'City Hall Plaza',
+        description:
+          'Start at the iconic city hall with its stunning architecture.',
+        imageUrl:
+          'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad',
+        duration: '15 min',
+        walkingTime: '5 min walk',
+        walkingDistance: '400 m',
+      },
+      {
+        id: 'stop-2',
+        order: 2,
+        title: 'Old Market Square',
+        description: 'Historic marketplace dating back to 1850.',
+        imageUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5',
+        duration: '20 min',
+        walkingTime: '8 min walk',
+        walkingDistance: '650 m',
+      },
+      {
+        id: 'stop-3',
+        order: 3,
+        title: 'Heritage Museum',
+        description: 'Explore local history and cultural exhibits.',
+        imageUrl:
+          'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3',
+        duration: '30 min',
+        walkingTime: '6 min walk',
+        walkingDistance: '500 m',
+      },
+      {
+        id: 'stop-4',
+        order: 4,
+        title: 'Cathedral Square',
+        description: 'Beautiful cathedral with panoramic city views.',
+        imageUrl: 'https://images.unsplash.com/photo-1548013146-72479768bada',
+        duration: '25 min',
+        walkingTime: '7 min walk',
+        walkingDistance: '550 m',
+      },
+    ],
+    highlights: [
+      'Professional local guide',
+      'Small group experience',
+      'Historic landmarks',
+      'Photo opportunities',
+    ],
+    included: [
+      'Guided walking tour',
+      'Museum entry fees',
+      'Digital guide map',
+      'Audio guide available',
+    ],
+    meetingPoint: {
+      name: 'City Hall Plaza',
+      address: '123 Main Street, Downtown',
+      latitude: 40.7128,
+      longitude: -74.006,
+    },
+  },
+  '2': {
+    id: '2',
+    title: 'Waterfront Sunset Trail',
+    description:
+      'A scenic route along the waterfront with breathtaking sunset views.',
+    location: 'Harbor District',
+    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4',
+    images: [
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4',
+      'https://images.unsplash.com/photo-1501594907352-04cda38ebc29',
+    ],
+    rating: 4.9,
+    reviewCount: 567,
+    price: 'free',
+    duration: '1.5 hours',
+    distance: '2.8 km',
+    calories: '320 cal',
+    stopCount: 5,
+    badge: 'new',
+    itinerary: [
+      {
+        id: 'stop-5',
+        order: 1,
+        title: 'Harbor Pier',
+        description: 'Starting point with marina views.',
+        imageUrl:
+          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4',
+        duration: '10 min',
+        walkingTime: '6 min walk',
+        walkingDistance: '500 m',
+      },
+      {
+        id: 'stop-6',
+        order: 2,
+        title: 'Lighthouse Point',
+        description: 'Historic lighthouse with coastal views.',
+        imageUrl:
+          'https://images.unsplash.com/photo-1501594907352-04cda38ebc29',
+        duration: '15 min',
+        walkingTime: '8 min walk',
+        walkingDistance: '600 m',
+      },
+    ],
+    highlights: [
+      'Sunset views',
+      'Coastal scenery',
+      'Free access',
+      'Wildlife spotting',
+    ],
+    included: ['Self-guided trail', 'Map provided'],
+    meetingPoint: {
+      name: 'Harbor Pier',
+      address: '456 Waterfront Ave',
+      latitude: 40.7489,
+      longitude: -73.9681,
+    },
+  },
+};

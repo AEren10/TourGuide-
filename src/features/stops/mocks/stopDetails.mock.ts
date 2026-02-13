@@ -1,0 +1,165 @@
+import { StopDetail, TravelerInsight } from '../types/stop.types';
+
+export const stopDetailsMock: Record<string, StopDetail> = {
+  'stop-1': {
+    id: 'stop-1',
+    title: 'City Hall Plaza',
+    category: 'landmark',
+    description:
+      'The City Hall Plaza is a magnificent example of neoclassical architecture, built in 1895. This historic building serves as the heart of local government and features stunning marble columns, intricate frescoes, and a beautiful central dome. The plaza surrounding it hosts weekly farmers markets and cultural events.',
+    images: [
+      'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad',
+      'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df',
+      'https://images.unsplash.com/photo-1519501025264-65ba15a82390',
+      'https://images.unsplash.com/photo-1512453979798-5ea266f8880c',
+    ],
+    rating: 4.8,
+    reviewCount: 1234,
+    status: 'open',
+    statusMessage: 'Open until 6:00 PM',
+    duration: '15-20 min',
+    distance: '400 m from previous stop',
+    audioGuide: true,
+    price: 'free',
+    location: {
+      latitude: 40.7128,
+      longitude: -74.006,
+      address: '123 Main Street, Downtown',
+    },
+    highlights: [
+      'Neoclassical architecture from 1895',
+      'Marble columns and central dome',
+      'Weekly farmers market',
+      'Free public tours available',
+    ],
+    openingHours: [
+      { day: 'Monday-Friday', hours: '9:00 AM - 6:00 PM' },
+      { day: 'Saturday', hours: '10:00 AM - 4:00 PM' },
+      { day: 'Sunday', hours: 'Closed' },
+    ],
+  },
+  'stop-2': {
+    id: 'stop-2',
+    title: 'Old Market Square',
+    category: 'historical',
+    description:
+      'A bustling historic marketplace that has been the commercial heart of the city since 1850. The square features original cobblestone streets, Victorian-era buildings, and a variety of local vendors selling artisan goods, fresh produce, and traditional crafts.',
+    images: [
+      'https://images.unsplash.com/photo-1555396273-367ea4eb4db5',
+      'https://images.unsplash.com/photo-1543083477-4704785e6e4e',
+    ],
+    rating: 4.7,
+    reviewCount: 892,
+    status: 'open',
+    statusMessage: 'Open daily',
+    duration: '20-30 min',
+    distance: '650 m from previous stop',
+    audioGuide: true,
+    price: 'free',
+    location: {
+      latitude: 40.7138,
+      longitude: -74.0065,
+      address: '45 Market Street, Downtown',
+    },
+    highlights: [
+      'Historic marketplace since 1850',
+      'Victorian-era architecture',
+      'Local artisan vendors',
+      'Cobblestone streets',
+    ],
+    openingHours: [{ day: 'Daily', hours: '8:00 AM - 8:00 PM' }],
+  },
+  'stop-3': {
+    id: 'stop-3',
+    title: 'Heritage Museum',
+    category: 'museum',
+    description:
+      'The Heritage Museum showcases the rich cultural history of the region through interactive exhibits, artifacts, and multimedia displays. The museum building itself is a restored 19th-century mansion.',
+    images: [
+      'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3',
+      'https://images.unsplash.com/photo-1565301660306-29e08751cc3d',
+    ],
+    rating: 4.9,
+    reviewCount: 456,
+    status: 'open',
+    statusMessage: 'Open until 5:00 PM',
+    duration: '30-45 min',
+    distance: '500 m from previous stop',
+    audioGuide: true,
+    price: 12,
+    location: {
+      latitude: 40.7145,
+      longitude: -74.007,
+      address: '78 Heritage Lane, Downtown',
+    },
+    highlights: [
+      'Interactive exhibits',
+      'Restored 19th-century mansion',
+      'Local history artifacts',
+      'Guided tours available',
+    ],
+    openingHours: [
+      { day: 'Tuesday-Sunday', hours: '10:00 AM - 5:00 PM' },
+      { day: 'Monday', hours: 'Closed' },
+    ],
+  },
+};
+
+export const travelerInsightsMock: Record<string, TravelerInsight[]> = {
+  'stop-1': [
+    {
+      id: 'insight-1',
+      userId: 'user-1',
+      userName: 'Sarah Johnson',
+      userAvatar: 'https://i.pravatar.cc/150?img=1',
+      isVerified: true,
+      tip: 'Visit during golden hour for amazing photography! The dome looks spectacular at sunset.',
+      helpful: 127,
+      timestamp: '2024-01-15T10:30:00Z',
+    },
+    {
+      id: 'insight-2',
+      userId: 'user-2',
+      userName: 'Michael Chen',
+      userAvatar: 'https://i.pravatar.cc/150?img=2',
+      isVerified: true,
+      tip: "Don't miss the free guided tour at 2 PM on weekdays. Very informative!",
+      helpful: 94,
+      timestamp: '2024-01-10T14:20:00Z',
+    },
+    {
+      id: 'insight-3',
+      userId: 'user-3',
+      userName: 'Emma Davis',
+      userAvatar: 'https://i.pravatar.cc/150?img=3',
+      isVerified: false,
+      tip: 'The farmers market on Saturday mornings is worth checking out. Great local produce!',
+      helpful: 56,
+      timestamp: '2024-01-08T09:15:00Z',
+    },
+  ],
+  'stop-2': [
+    {
+      id: 'insight-4',
+      userId: 'user-4',
+      userName: 'David Martinez',
+      userAvatar: 'https://i.pravatar.cc/150?img=4',
+      isVerified: true,
+      tip: 'Try the local honey vendor in the northeast corner. Best in the city!',
+      helpful: 203,
+      timestamp: '2024-01-12T11:45:00Z',
+    },
+  ],
+  'stop-3': [
+    {
+      id: 'insight-5',
+      userId: 'user-5',
+      userName: 'Lisa Anderson',
+      userAvatar: 'https://i.pravatar.cc/150?img=5',
+      isVerified: true,
+      tip: 'Audio guide is worth the extra fee. Provides great context to the exhibits.',
+      helpful: 145,
+      timestamp: '2024-01-14T15:30:00Z',
+    },
+  ],
+};
