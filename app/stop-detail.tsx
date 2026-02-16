@@ -46,15 +46,27 @@ export default function StopDetailScreen() {
     selectIsStopFavorite(state, id || '')
   );
 
+  // Debug
+  React.useEffect(() => {
+    console.log('🔷 Stop Detail - ID:', id);
+    console.log('🔷 Stop Data:', stop);
+    console.log('🔷 Stop Coordinates:', stop?.coordinates);
+    console.log('🔷 Stop Error:', stopError);
+  }, [id, stop, stopError]);
+
   const handleToggleFavorite = () => {
     if (id) {
       dispatch(toggleStopFavorite(id));
     }
   };
 
-  const handleBookTicket = () => {
-    // Placeholder for booking functionality
-    Alert.alert('Book Ticket', 'Booking feature coming soon!');
+  const handleStartTour = () => {
+    // Navigate to tour detail page
+    if (stop?.tourId) {
+      router.push(`/tour-detail?id=${stop.tourId}`);
+    } else {
+      Alert.alert('Error', 'Tour information not available');
+    }
   };
 
   const handleCheckIn = () => {
@@ -152,49 +164,102 @@ export default function StopDetailScreen() {
     );
   }
 
+  // Check if images exist
+  const hasImages = stop.images && stop.images.length > 0;
+
   return (
     <View style={styles.container}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-        <View style={styles.heroContainer}>
-          <StopDetailHero images={stop.images} />
+        {hasImages && (
+          <View style={styles.heroContainer}>
+            <StopDetailHero images={stop.images} />
 
-          <View style={styles.topNav}>
+            <View style={styles.topNav}>
+              <IconButton
+                icon={<Ionicons name="arrow-back" size={24} color="#000" />}
+                variant="glass"
+                onPress={() => router.back()}
+              />
+              <View style={styles.topNavRight}>
+                <IconButton
+                  icon={
+                    <Ionicons name="share-outline" size={24} color="#000" />
+                  }
+                  variant="glass"
+                  onPress={handleShare}
+                />
+                <IconButton
+                  icon={
+                    <Ionicons
+                      name={isFavorite ? 'heart' : 'heart-outline'}
+                      size={24}
+                      color={isFavorite ? theme.colors.error : '#000'}
+                    />
+                  }
+                  variant="glass"
+                  onPress={handleToggleFavorite}
+                />
+              </View>
+            </View>
+          </View>
+        )}
+
+        {!hasImages && (
+          <View
+            style={[
+              styles.topNav,
+              { position: 'relative', paddingTop: theme.spacing.xl },
+            ]}
+          >
             <IconButton
-              icon={<Ionicons name="arrow-back" size={24} color="#000" />}
-              variant="glass"
+              icon={
+                <Ionicons
+                  name="arrow-back"
+                  size={24}
+                  color={theme.colors.text}
+                />
+              }
+              variant="ghost"
               onPress={() => router.back()}
             />
             <View style={styles.topNavRight}>
               <IconButton
-                icon={<Ionicons name="share-outline" size={24} color="#000" />}
-                variant="glass"
-                onPress={() => {}}
+                icon={
+                  <Ionicons
+                    name="share-outline"
+                    size={24}
+                    color={theme.colors.text}
+                  />
+                }
+                variant="ghost"
+                onPress={handleShare}
               />
               <IconButton
                 icon={
                   <Ionicons
                     name={isFavorite ? 'heart' : 'heart-outline'}
                     size={24}
-                    color={isFavorite ? theme.colors.error : '#000'}
+                    color={isFavorite ? theme.colors.error : theme.colors.text}
                   />
                 }
-                variant="glass"
+                variant="ghost"
                 onPress={handleToggleFavorite}
               />
             </View>
           </View>
-        </View>
+        )}
 
         <StopInfoCard
-          title={stop.title}
+          title={stop.title || stop.name}
           category={stop.category}
           rating={stop.rating}
           reviewCount={stop.reviewCount}
           status={stop.status}
           statusMessage={stop.statusMessage}
+          hasHeroImage={hasImages}
         />
 
         <View style={styles.section}>
@@ -252,27 +317,14 @@ export default function StopDetailScreen() {
         <InsightsCarousel insights={insights || []} loading={insightsLoading} />
 
         <MapPreview
-          latitude={stop.location.latitude}
-          longitude={stop.location.longitude}
-          address={stop.location.address}
-          title={stop.title}
+          latitude={stop.coordinates?.latitude || 0}
+          longitude={stop.coordinates?.longitude || 0}
+          address={stop.description || ''}
+          title={stop.title || stop.name}
         />
       </ScrollView>
 
-      <StickyFooterButton
-        title="Book Ticket"
-        onPress={handleBookTicket}
-        leftContent={
-          <View style={styles.footerContent}>
-            {stop.price && stop.price !== 'free' && (
-              <PriceTag price={stop.price} size="large" variant="primary" />
-            )}
-            {stop.price === 'free' && (
-              <PriceTag price="free" size="large" variant="primary" />
-            )}
-          </View>
-        }
-      />
+      <StickyFooterButton title="Start Tour" onPress={handleStartTour} />
     </View>
   );
 }

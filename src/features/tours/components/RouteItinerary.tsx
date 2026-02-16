@@ -12,9 +12,17 @@ interface RouteItineraryProps {
 
 const INITIAL_VISIBLE_STOPS = 4;
 
-export const RouteItinerary = ({ stops, onStopPress }: RouteItineraryProps) => {
+export const RouteItinerary = ({
+  stops = [],
+  onStopPress,
+}: RouteItineraryProps) => {
   const { theme } = useTheme();
   const [showAll, setShowAll] = useState(false);
+
+  // Safety check
+  if (!stops || stops.length === 0) {
+    return null;
+  }
 
   const visibleStops = showAll ? stops : stops.slice(0, INITIAL_VISIBLE_STOPS);
   const hasMore = stops.length > INITIAL_VISIBLE_STOPS;

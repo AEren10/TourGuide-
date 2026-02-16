@@ -187,7 +187,8 @@ export const api = createApi({
               tour:tours(
                 id,
                 title,
-                image_url
+                image_url,
+                category:categories(name)
               )
             `
             )
@@ -200,15 +201,32 @@ export const api = createApi({
       transformResponse: (response: any) => {
         return {
           id: response.id,
+          title: response.name, // Map name to title
           name: response.name,
-          description: response.description,
+          category: response.category || 'landmark', // Use DB category or default
+          description: response.description || '',
+          images: response.image_urls || [], // Map imageUrls to images
+          rating: 0, // Default rating (stops don't have ratings in DB)
+          reviewCount: 0, // Default reviewCount
+          status: 'open' as any, // Default status
+          statusMessage: undefined,
+          duration: `${response.duration || 30} min`, // Format duration
+          distance: undefined,
+          audioGuide: !!response.audio_url, // Boolean based on audioUrl presence
+          price: 'free' as any, // Default to free
+          location: {
+            latitude: response.latitude,
+            longitude: response.longitude,
+            address: '',
+          },
           coordinates: {
+            // Keep for backward compatibility
             latitude: response.latitude,
             longitude: response.longitude,
           },
+          highlights: [], // Empty highlights
           imageUrls: response.image_urls || [],
           audioUrl: response.audio_url,
-          duration: response.duration,
           tourId: response.tour?.id,
           tourTitle: response.tour?.title,
         };

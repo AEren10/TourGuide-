@@ -1,0 +1,30 @@
+# Supabase Configuration File
+# This file is used for local development with Supabase CLI
+
+[project]
+# Project name and ID will be set when you link to your Supabase project
+# Run: supabase link --project-ref YOUR_PROJECT_REF
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage"]
+extra_search_path = ["public"]
+
+[db]
+port = 54322
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+
+[auth]
+enabled = true
+site_url = "exp://localhost:8081"
+additional_redirect_urls = []
+
+[auth.email]
+enable_signup = true
+double_confirm_changes = true
+enable_confirmations = false

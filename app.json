@@ -6,7 +6,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
@@ -14,17 +14,52 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourcompany.tourguide",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "TourGuide uses your location to show nearby tours and guide you along your selected route with turn-by-turn navigation.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "TourGuide needs background location access to provide navigation guidance and notify you when you approach tour stops, even when the app is in the background.",
+        "NSCameraUsageDescription": "TourGuide needs camera access to let you capture and share photos at tour stops for check-ins and reviews.",
+        "NSPhotoLibraryUsageDescription": "TourGuide needs access to your photo library to let you upload photos from tour stops and share your experiences.",
+        "NSPhotoLibraryAddUsageDescription": "TourGuide would like to save tour photos to your library."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "package": "com.yourcompany.tourguide",
+      "versionCode": 1,
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ],
       "edgeToEdgeEnabled": true
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "TourGuide uses your location to show nearby tours and provide navigation guidance."
+        }
+      ],
+      "expo-video",
+      "expo-localization"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "your-project-id-here"
+      }
     }
   }
 }

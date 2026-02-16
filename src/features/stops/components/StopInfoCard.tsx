@@ -13,6 +13,7 @@ interface StopInfoCardProps {
   reviewCount: number;
   status: StopStatus;
   statusMessage?: string;
+  hasHeroImage?: boolean;
 }
 
 export const StopInfoCard = ({
@@ -22,6 +23,7 @@ export const StopInfoCard = ({
   reviewCount,
   status,
   statusMessage,
+  hasHeroImage = true,
 }: StopInfoCardProps) => {
   const { theme } = useTheme();
 
@@ -56,7 +58,7 @@ export const StopInfoCard = ({
       backgroundColor: theme.colors.surfaceElevated,
       borderRadius: theme.radius.lg,
       padding: theme.spacing.md,
-      marginTop: -theme.spacing.xl,
+      marginTop: hasHeroImage ? -theme.spacing.xl : theme.spacing.md,
       marginHorizontal: theme.spacing.md,
       borderWidth: 1,
       borderColor: theme.colors.border,

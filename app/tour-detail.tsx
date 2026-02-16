@@ -34,6 +34,14 @@ export default function TourDetailScreen() {
     selectIsTourFavorite(state, id || '')
   );
 
+  // Debug
+  React.useEffect(() => {
+    console.log('🎯 Tour Detail - ID:', id);
+    console.log('🎯 Tour Data:', tour);
+    console.log('🎯 Tour Stops:', tour?.stops);
+    console.log('🎯 Tour Error:', error);
+  }, [id, tour, error]);
+
   const handleStartNavigation = () => {
     router.push(`/active-route-map?id=${id}`);
   };
@@ -172,7 +180,10 @@ export default function TourDetailScreen() {
           />
         </View>
 
-        <RouteItinerary stops={tour.itinerary} onStopPress={handleStopPress} />
+        <RouteItinerary
+          stops={tour.stops || []}
+          onStopPress={handleStopPress}
+        />
       </ScrollView>
 
       <StickyFooterButton
