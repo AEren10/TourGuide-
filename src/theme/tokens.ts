@@ -1,11 +1,11 @@
 export const tokens = {
   spacing: {
-    xs: 4,
-    sm: 8,
-    md: 16,
-    lg: 24,
-    xl: 32,
-    xxl: 48,
+    xs: 6,
+    sm: 12,
+    md: 20,
+    lg: 28,
+    xl: 40,
+    xxl: 56,
   },
   radius: {
     xs: 6,
@@ -13,8 +13,19 @@ export const tokens = {
     md: 12,
     lg: 16,
     xl: 20,
+    '2xl': 28,
     xxl: 35,
     pill: 42,
+    full: 9999,
+  },
+  borderRadius: {
+    DEFAULT: 4,
+    sm: 6,
+    md: 8,
+    lg: 12,
+    xl: 16,
+    '2xl': 28,
+    '3xl': 35,
     full: 9999,
   },
   typography: {

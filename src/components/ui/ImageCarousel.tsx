@@ -12,7 +12,7 @@ import {
 import { useTheme } from '@/theme';
 
 interface ImageCarouselProps extends ViewProps {
-  images: string[];
+  images?: string[];
   height?: number;
   showPagination?: boolean;
 }
@@ -20,7 +20,7 @@ interface ImageCarouselProps extends ViewProps {
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export const ImageCarousel = ({
-  images,
+  images = [],
   height = 300,
   showPagination = true,
   style,
@@ -29,6 +29,11 @@ export const ImageCarousel = ({
   const { theme } = useTheme();
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollViewRef = useRef<ScrollView>(null);
+
+  // Safety check
+  if (!images || images.length === 0) {
+    return null;
+  }
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const scrollPosition = event.nativeEvent.contentOffset.x;

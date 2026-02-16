@@ -36,6 +36,14 @@ export default function TabsLayout() {
           tabBarIcon: () => null,
         }}
       />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: 'Settings',
+          tabBarIcon: () => null,
+          href: null, // Hide from tab bar, accessible via navigation only
+        }}
+      />
     </Tabs>
   );
 }

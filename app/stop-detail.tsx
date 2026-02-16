@@ -22,6 +22,7 @@ import { Divider } from '@/components/ui/Divider';
 import { StopDetailHero } from '@/features/stops/components/StopDetailHero';
 import { StopInfoCard } from '@/features/stops/components/StopInfoCard';
 import { StopQuickStats } from '@/features/stops/components/StopQuickStats';
+import { QuickActionsBar } from '@/features/stops/components/QuickActionsBar';
 import { InsightsCarousel } from '@/features/stops/components/InsightsCarousel';
 import { MapPreview } from '@/features/stops/components/MapPreview';
 
@@ -54,6 +55,22 @@ export default function StopDetailScreen() {
   const handleBookTicket = () => {
     // Placeholder for booking functionality
     Alert.alert('Book Ticket', 'Booking feature coming soon!');
+  };
+
+  const handleCheckIn = () => {
+    Alert.alert('Check-in', 'Check-in feature coming soon!');
+  };
+
+  const handleAudio = () => {
+    Alert.alert('Audio Guide', 'Audio guide feature coming soon!');
+  };
+
+  const handleReview = () => {
+    Alert.alert('Write Review', 'Review feature coming soon!');
+  };
+
+  const handleShare = () => {
+    Alert.alert('Share', 'Share feature coming soon!');
   };
 
   const styles = StyleSheet.create({
@@ -179,6 +196,15 @@ export default function StopDetailScreen() {
           status={stop.status}
           statusMessage={stop.statusMessage}
         />
+
+        <View style={styles.section}>
+          <QuickActionsBar
+            onCheckIn={handleCheckIn}
+            onAudio={handleAudio}
+            onReview={handleReview}
+            onShare={handleShare}
+          />
+        </View>
 
         <View style={styles.section}>
           <StopQuickStats

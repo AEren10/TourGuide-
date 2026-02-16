@@ -53,7 +53,7 @@ export const Badge = ({
     },
   };
 
-  const colors = variantColors[variant];
+  const colors = variantColors[variant] || variantColors.default;
 
   const styles = StyleSheet.create({
     badge: {

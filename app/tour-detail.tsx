@@ -124,7 +124,11 @@ export default function TourDetailScreen() {
         contentContainerStyle={styles.scrollContent}
       >
         <View style={styles.heroContainer}>
-          <ImageCarousel images={tour.images} height={300} showPagination />
+          <ImageCarousel
+            images={tour.imageUrl ? [tour.imageUrl] : []}
+            height={300}
+            showPagination
+          />
 
           <View style={styles.topNav}>
             <IconButton

@@ -1,0 +1,66 @@
+{
+  "common": {
+    "continue": "Continue",
+    "skip": "Skip",
+    "getStarted": "Get Started",
+    "close": "Close",
+    "back": "Back",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "onboarding": {
+    "screen1": {
+      "title": "Discover Hidden Gems",
+      "description": "Explore curated tours and find the best places in your city"
+    },
+    "screen2": {
+      "title": "Audio-Guided Tours",
+      "description": "Listen to stories and insights as you explore each location"
+    },
+    "screen3": {
+      "title": "Save Your Favorites",
+      "description": "Create your own collection of must-visit places"
+    }
+  },
+  "paywall": {
+    "title": "Unlock Premium",
+    "subtitle": "Get unlimited access to all tours and features",
+    "features": {
+      "unlimitedTours": "Unlimited tour access",
+      "offlineMode": "Download tours for offline use",
+      "premiumContent": "Exclusive premium content",
+      "noAds": "Ad-free experience"
+    },
+    "weekly": "Weekly",
+    "yearly": "Yearly",
+    "save": "SAVE 50%",
+    "restore": "Restore Purchases",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy"
+  },
+  "settings": {
+    "title": "Settings",
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "auto": "Auto",
+    "language": "Language",
+    "english": "English",
+    "turkish": "Turkish",
+    "notifications": "Notifications",
+    "premium": "Premium",
+    "removeAds": "Remove Ads",
+    "restorePurchases": "Restore Purchases",
+    "other": "Other",
+    "resetOnboarding": "Reset Onboarding",
+    "version": "Version",
+    "themeInfo": "Currently using {{theme}} theme. App restart may be needed to apply changes."
+  },
+  "tabs": {
+    "home": "Home",
+    "explore": "Explore",
+    "saved": "Saved",
+    "profile": "Profile"
+  }
+}

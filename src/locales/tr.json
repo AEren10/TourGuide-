@@ -1,0 +1,66 @@
+{
+  "common": {
+    "continue": "Devam Et",
+    "skip": "Atla",
+    "getStarted": "Başla",
+    "close": "Kapat",
+    "back": "Geri",
+    "save": "Kaydet",
+    "cancel": "İptal"
+  },
+  "onboarding": {
+    "screen1": {
+      "title": "Gizli Hazineleri Keşfet",
+      "description": "Özenle seçilmiş turları keşfet ve şehrindeki en iyi yerleri bul"
+    },
+    "screen2": {
+      "title": "Sesli Rehberli Turlar",
+      "description": "Her lokasyonu keşfederken hikayeleri ve içgörüleri dinle"
+    },
+    "screen3": {
+      "title": "Favorilerini Kaydet",
+      "description": "Mutlaka görülmesi gereken yerlerin kendi koleksiyonunu oluştur"
+    }
+  },
+  "paywall": {
+    "title": "Premium'u Aç",
+    "subtitle": "Tüm turlara ve özelliklere sınırsız erişim elde et",
+    "features": {
+      "unlimitedTours": "Sınırsız tur erişimi",
+      "offlineMode": "Çevrimdışı kullanım için tur indirme",
+      "premiumContent": "Özel premium içerik",
+      "noAds": "Reklamsız deneyim"
+    },
+    "weekly": "Haftalık",
+    "yearly": "Yıllık",
+    "save": "%50 İNDİRİM",
+    "restore": "Satın Alımları Geri Yükle",
+    "terms": "Kullanım Şartları",
+    "privacy": "Gizlilik Politikası"
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "appearance": "Görünüm",
+    "theme": "Tema",
+    "light": "Açık",
+    "dark": "Koyu",
+    "auto": "Otomatik",
+    "language": "Dil",
+    "english": "İngilizce",
+    "turkish": "Türkçe",
+    "notifications": "Bildirimler",
+    "premium": "Premium",
+    "removeAds": "Reklamları Kaldır",
+    "restorePurchases": "Satın Alımları Geri Yükle",
+    "other": "Diğer",
+    "resetOnboarding": "Tanıtımı Sıfırla",
+    "version": "Sürüm",
+    "themeInfo": "Şu anda {{theme}} tema kullanılıyor. Değişikliklerin uygulanması için uygulama yeniden başlatılması gerekebilir."
+  },
+  "tabs": {
+    "home": "Ana Sayfa",
+    "explore": "Keşfet",
+    "saved": "Kaydedilenler",
+    "profile": "Profil"
+  }
+}
