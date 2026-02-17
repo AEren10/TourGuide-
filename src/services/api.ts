@@ -159,15 +159,17 @@ export const api = createApi({
               ?.sort((a: any, b: any) => a.order_index - b.order_index)
               .map((stop: any) => ({
                 id: stop.id,
+                order: stop.order_index,
+                title: stop.name,
                 name: stop.name,
-                description: stop.description,
+                description: stop.description || '',
+                imageUrl: stop.image_urls?.[0] || '',
+                imageUrls: stop.image_urls || [],
+                duration: stop.duration ? `${stop.duration} min` : '30 min',
                 coordinates: {
                   latitude: stop.latitude,
                   longitude: stop.longitude,
                 },
-                orderIndex: stop.order_index,
-                duration: stop.duration,
-                imageUrls: stop.image_urls || [],
                 audioUrl: stop.audio_url,
               })) || [],
         };
@@ -314,6 +316,63 @@ export const api = createApi({
       ],
     }),
 
+    // Explore screen endpoint
+    getExploreTours: builder.query<
+      PopularRoute[],
+      { category?: string; search?: string }
+    >({
+      query: ({ category, search } = {}) => ({
+        query: async () => {
+          let q = supabase
+            .from('tours')
+            .select(
+              `
+              id,
+              title,
+              description,
+              image_url,
+              duration,
+              distance,
+              price,
+              rating,
+              badge,
+              category:categories(name, icon)
+            `
+            )
+            .eq('is_active', true);
+
+          if (category && category !== 'all') {
+            q = q.eq('categories.name', category);
+          }
+
+          if (search) {
+            q = q.ilike('title', `%${search}%`);
+          }
+
+          const { data, error } = await q.order('rating', { ascending: false });
+          return { data, error };
+        },
+      }),
+      transformResponse: (response: any[]) => {
+        return response.map((tour) => ({
+          id: tour.id,
+          title: tour.title,
+          description: tour.description,
+          imageUrl: tour.image_url,
+          duration: tour.duration ? `${tour.duration} dk` : undefined,
+          distance: tour.distance ? `${tour.distance} km` : undefined,
+          price:
+            tour.price === 0 || tour.price === null
+              ? 'Ücretsiz'
+              : `₺${tour.price}`,
+          rating: tour.rating ?? 0,
+          badge: tour.badge,
+          category: tour.category?.name?.toLowerCase() || 'other',
+        }));
+      },
+      providesTags: ['Tours'],
+    }),
+
     // Favorites endpoints
     getFavorites: builder.query<PopularRoute[], void>({
       query: () => ({
@@ -411,6 +470,7 @@ export const api = createApi({
 export const {
   useGetNextAdventuresQuery,
   useGetPopularRoutesQuery,
+  useGetExploreToursQuery,
   useGetTourDetailsQuery,
   useGetStopDetailsQuery,
   useGetTravelerInsightsQuery,
