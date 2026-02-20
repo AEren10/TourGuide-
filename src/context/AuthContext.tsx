@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     // Create user profile in users table
     if (data.user) {
-      await supabase.from('users').insert({
+      await (supabase.from('users') as any).insert({
         id: data.user.id,
         full_name: fullName,
       });

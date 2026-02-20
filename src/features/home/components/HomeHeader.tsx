@@ -4,54 +4,61 @@ import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '@/theme';
 import { Text } from '@/components/ui/Text';
+import { useAuth } from '@/context/AuthContext';
 
 interface HomeHeaderProps {
-  userName?: string;
-  userAvatar?: string;
   hasNotification?: boolean;
   onProfilePress?: () => void;
   onSettingsPress?: () => void;
 }
 
 export const HomeHeader = ({
-  userName = 'Alex',
-  userAvatar = 'https://i.pravatar.cc/150?img=12',
   hasNotification = false,
   onProfilePress,
   onSettingsPress,
 }: HomeHeaderProps) => {
-  const { theme, isDark } = useTheme();
+  const { theme } = useTheme();
+  const { user } = useAuth();
+
+  const displayName =
+    user?.user_metadata?.full_name?.split(' ')[0] ||
+    user?.email?.split('@')[0] ||
+    'Gezgin';
+
+  const avatarUrl =
+    user?.user_metadata?.avatar_url ||
+    `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=ee8c2b&color=fff&size=200`;
 
   const getGreeting = () => {
     const hour = new Date().getHours();
-    if (hour < 12) return 'Good morning';
-    if (hour < 18) return 'Good afternoon';
-    return 'Good evening';
+    if (hour < 12) return 'Günaydın';
+    if (hour < 18) return 'İyi günler';
+    return 'İyi akşamlar';
   };
 
   const getDate = () => {
     const days = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
+      'Pazar',
+      'Pazartesi',
+      'Salı',
+      'Çarşamba',
+      'Perşembe',
+      'Cuma',
+      'Cumartesi',
     ];
     const months = [
-      'Jan',
-      'Feb',
+      'Oca',
+      'Şub',
       'Mar',
-      'Apr',
+      'Nis',
       'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
+      'Haz',
+      'Tem',
+      'Ağu',
+      'Eyl',
+      'Eki',
+      'Kas',
+      'Ara',
     ];
     const now = new Date();
     return `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`;
@@ -161,7 +168,7 @@ export const HomeHeader = ({
             end={{ x: 1, y: 1 }}
             style={styles.avatarGradient}
           >
-            <Image source={{ uri: userAvatar }} style={styles.avatar} />
+            <Image source={{ uri: avatarUrl }} style={styles.avatar} />
           </LinearGradient>
           {hasNotification && <View style={styles.badge} />}
         </TouchableOpacity>
@@ -171,9 +178,9 @@ export const HomeHeader = ({
         <Text style={styles.dateText}>{getDate()}</Text>
         <View style={styles.greetingContainer}>
           <Text style={styles.greetingText}>{getGreeting()}, </Text>
-          <Text style={styles.nameText}>{userName}.</Text>
+          <Text style={styles.nameText}>{displayName}.</Text>
         </View>
-        <Text style={styles.subtitle}>Ready for adventure?</Text>
+        <Text style={styles.subtitle}>Gezmeye hazır mısın?</Text>
       </View>
     </View>
   );

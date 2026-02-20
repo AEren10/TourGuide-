@@ -26,7 +26,7 @@ export const RatingBadge = ({ rating, size = 'medium' }: RatingBadgeProps) => {
     <View style={styles.container}>
       <Ionicons name="star" size={iconSize} color="#FFD700" />
       <Text variant={textVariant} style={{ color: theme.colors.text }}>
-        {rating.toFixed(1)}
+        {(rating ?? 0).toFixed(1)}
       </Text>
     </View>
   );

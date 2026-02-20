@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  Share,
+} from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '@/theme';
@@ -9,6 +15,11 @@ import {
   selectIsTourFavorite,
   toggleTourFavorite,
 } from '@/store/slices/favoritesSlice';
+import {
+  useAddFavoriteMutation,
+  useRemoveFavoriteMutation,
+} from '@/services/api';
+import { useAuth } from '@/context/AuthContext';
 import { ImageCarousel } from '@/components/ui/ImageCarousel';
 import { IconButton } from '@/components/ui/IconButton';
 import { StickyFooterButton } from '@/components/layout/StickyFooterButton';
@@ -33,25 +44,47 @@ export default function TourDetailScreen() {
   const isFavorite = useAppSelector((state) =>
     selectIsTourFavorite(state, id || '')
   );
-
-  // Debug
-  React.useEffect(() => {
-    console.log('🎯 Tour Detail - ID:', id);
-    console.log('🎯 Tour Data:', tour);
-    console.log('🎯 Tour Stops:', tour?.stops);
-    console.log('🎯 Tour Error:', error);
-  }, [id, tour, error]);
+  const { user } = useAuth();
+  const [addFavorite] = useAddFavoriteMutation();
+  const [removeFavorite] = useRemoveFavoriteMutation();
 
   const handleStartNavigation = () => {
     router.push(`/active-route-map?id=${id}`);
+  };
+
+  const handleShare = async () => {
+    if (!tour) return;
+    await Share.share({
+      title: tour.title,
+      message: `${tour.title}\n\n${tour.description ?? ''}\n\nTourGuide uygulamasıyla keşfet!`,
+    });
   };
 
   const handleStopPress = (stopId: string) => {
     router.push(`/stop-detail?id=${stopId}`);
   };
 
-  const handleToggleFavorite = () => {
-    if (id) {
+  const handleToggleFavorite = async () => {
+    if (!id) return;
+
+    // Giriş yapılmamışsa auth'a yönlendir
+    if (!user) {
+      router.push('/auth');
+      return;
+    }
+
+    // Redux'u optimistik güncelle
+    dispatch(toggleTourFavorite(id));
+
+    // Supabase'e yaz
+    try {
+      if (isFavorite) {
+        await removeFavorite(id).unwrap();
+      } else {
+        await addFavorite(id).unwrap();
+      }
+    } catch {
+      // Hata olursa Redux'u geri al
       dispatch(toggleTourFavorite(id));
     }
   };
@@ -148,35 +181,40 @@ export default function TourDetailScreen() {
               <IconButton
                 icon={<Ionicons name="share-outline" size={24} color="#000" />}
                 variant="glass"
-                onPress={() => {}}
+                onPress={handleShare}
               />
-              <TouchableOpacity onPress={handleToggleFavorite}>
-                <IconButton
-                  icon={
-                    <Ionicons
-                      name={isFavorite ? 'heart' : 'heart-outline'}
-                      size={24}
-                      color={isFavorite ? theme.colors.error : '#000'}
-                    />
-                  }
-                  variant="glass"
-                />
-              </TouchableOpacity>
+              <IconButton
+                icon={
+                  <Ionicons
+                    name={isFavorite ? 'heart' : 'heart-outline'}
+                    size={24}
+                    color={isFavorite ? '#FF3B5C' : '#000'}
+                  />
+                }
+                variant="glass"
+                onPress={handleToggleFavorite}
+                style={
+                  isFavorite
+                    ? { backgroundColor: 'rgba(255,59,92,0.18)' }
+                    : undefined
+                }
+              />
             </View>
           </View>
         </View>
 
         <TourInfoCard
           title={tour.title}
-          location={tour.location}
+          location={(tour as any).location || (tour as any).category || ''}
           badge={tour.badge}
+          description={tour.description ?? undefined}
         />
 
         <View style={styles.section}>
           <QuickStats
-            duration={tour.duration}
-            distance={tour.distance}
-            stopCount={tour.stopCount}
+            duration={tour.duration ? String(tour.duration) : '—'}
+            distance={tour.distance ? `${tour.distance} km` : '—'}
+            stopCount={tour.stops?.length ?? 0}
           />
         </View>
 

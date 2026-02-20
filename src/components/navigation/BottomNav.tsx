@@ -3,13 +3,28 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter, usePathname } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '@/theme';
+import { useAuth } from '@/context/AuthContext';
 
 export const BottomNav = () => {
   const { theme } = useTheme();
   const router = useRouter();
   const pathname = usePathname();
+  const { user } = useAuth();
 
   const isActive = (path: string) => pathname === path;
+
+  // Giriş gerektiren sayfalara misafir erişmeye çalışırsa auth'a yönlendir
+  const navigateGuarded = (path: string) => {
+    router.push(path as any);
+  };
+
+  const navigateAuthRequired = (path: string) => {
+    if (user) {
+      router.push(path as any);
+    } else {
+      router.push('/auth');
+    }
+  };
 
   const styles = StyleSheet.create({
     container: {
@@ -49,7 +64,7 @@ export const BottomNav = () => {
             styles.iconButton,
             isActive('/(tabs)') && styles.activeButton,
           ]}
-          onPress={() => router.push('/(tabs)')}
+          onPress={() => navigateGuarded('/(tabs)')}
         >
           <Ionicons
             name={isActive('/(tabs)') ? 'home' : 'home-outline'}
@@ -63,7 +78,7 @@ export const BottomNav = () => {
             styles.iconButton,
             isActive('/(tabs)/explore') && styles.activeButton,
           ]}
-          onPress={() => router.push('/(tabs)/explore')}
+          onPress={() => navigateGuarded('/(tabs)/explore')}
         >
           <Ionicons
             name={isActive('/(tabs)/explore') ? 'compass' : 'compass-outline'}
@@ -72,12 +87,13 @@ export const BottomNav = () => {
           />
         </TouchableOpacity>
 
+        {/* Favoriler — giriş gerektirir */}
         <TouchableOpacity
           style={[
             styles.iconButton,
             isActive('/(tabs)/saved') && styles.activeButton,
           ]}
-          onPress={() => router.push('/(tabs)/saved')}
+          onPress={() => navigateAuthRequired('/(tabs)/saved')}
         >
           <Ionicons
             name={isActive('/(tabs)/saved') ? 'heart' : 'heart-outline'}
@@ -86,12 +102,13 @@ export const BottomNav = () => {
           />
         </TouchableOpacity>
 
+        {/* Profil — giriş gerektirir */}
         <TouchableOpacity
           style={[
             styles.iconButton,
             isActive('/(tabs)/profile') && styles.activeButton,
           ]}
-          onPress={() => router.push('/(tabs)/profile')}
+          onPress={() => navigateAuthRequired('/(tabs)/profile')}
         >
           <Ionicons
             name={isActive('/(tabs)/profile') ? 'person' : 'person-outline'}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Alert } from 'react-native';
+import { View, ScrollView, StyleSheet, Alert, Share } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '@/theme';
@@ -46,14 +46,6 @@ export default function StopDetailScreen() {
     selectIsStopFavorite(state, id || '')
   );
 
-  // Debug
-  React.useEffect(() => {
-    console.log('🔷 Stop Detail - ID:', id);
-    console.log('🔷 Stop Data:', stop);
-    console.log('🔷 Stop Coordinates:', stop?.coordinates);
-    console.log('🔷 Stop Error:', stopError);
-  }, [id, stop, stopError]);
-
   const handleToggleFavorite = () => {
     if (id) {
       dispatch(toggleStopFavorite(id));
@@ -81,8 +73,13 @@ export default function StopDetailScreen() {
     Alert.alert('Write Review', 'Review feature coming soon!');
   };
 
-  const handleShare = () => {
-    Alert.alert('Share', 'Share feature coming soon!');
+  const handleShare = async () => {
+    const title = stop?.title || stop?.name || 'Bu durağa bak!';
+    const description = stop?.description || '';
+    await Share.share({
+      title,
+      message: `${title}\n\n${description}\n\nTourGuide uygulamasıyla keşfet!`,
+    });
   };
 
   const styles = StyleSheet.create({

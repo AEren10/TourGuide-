@@ -13,6 +13,7 @@ interface Category {
 
 interface QuickStartCategoriesProps {
   onCategoryPress?: (categoryId: string) => void;
+  onSeeAllPress?: () => void;
 }
 
 const categories: Category[] = [
@@ -34,6 +35,7 @@ const categories: Category[] = [
 
 export const QuickStartCategories = ({
   onCategoryPress,
+  onSeeAllPress,
 }: QuickStartCategoriesProps) => {
   const { theme, isDark } = useTheme();
 
@@ -85,7 +87,7 @@ export const QuickStartCategories = ({
         <Text variant="bodyXlSemi" style={{ color: theme.colors.text }}>
           Quick Start
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onSeeAllPress}>
           <Text style={styles.seeAllButton}>See All</Text>
         </TouchableOpacity>
       </View>

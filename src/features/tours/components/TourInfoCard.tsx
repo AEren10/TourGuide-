@@ -10,9 +10,15 @@ interface TourInfoCardProps {
   title: string;
   location: string;
   badge?: BadgeType;
+  description?: string;
 }
 
-export const TourInfoCard = ({ title, location, badge }: TourInfoCardProps) => {
+export const TourInfoCard = ({
+  title,
+  location,
+  badge,
+  description,
+}: TourInfoCardProps) => {
   const { theme } = useTheme();
 
   const normalizeBadgeVariant = (badgeText?: string): BadgeType => {
@@ -84,6 +90,15 @@ export const TourInfoCard = ({ title, location, badge }: TourInfoCardProps) => {
         <Text variant="h4Medium" style={{ color: theme.colors.text }}>
           {title}
         </Text>
+        {description ? (
+          <Text
+            variant="bodySRegular"
+            style={{ color: theme.colors.textSecondary, lineHeight: 20 }}
+            numberOfLines={3}
+          >
+            {description}
+          </Text>
+        ) : null}
         <View style={styles.row}>
           <LocationBadge location={location} />
           {badge && (

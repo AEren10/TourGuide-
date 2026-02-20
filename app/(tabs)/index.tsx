@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTheme } from '@/theme';
+import { useAuth } from '@/context/AuthContext';
 import { BottomNav } from '@/components/navigation/BottomNav';
 import { HomeHeader } from '@/features/home/components/HomeHeader';
 import { HeroSlider } from '@/features/home/components/HeroSlider';
@@ -20,7 +21,16 @@ import {
 export default function HomeScreen() {
   const { theme } = useTheme();
   const router = useRouter();
+  const { user } = useAuth();
   const { isOnline } = useNetworkStatus();
+
+  const handleProfilePress = () => {
+    if (user) {
+      router.push('/(tabs)/profile');
+    } else {
+      router.push('/auth');
+    }
+  };
 
   // Track screen view
   useEffect(() => {
@@ -44,14 +54,6 @@ export default function HomeScreen() {
 
   const hasError = adventuresError || routesError;
   const isLoading = adventuresLoading || routesLoading;
-
-  // Debug logging
-  useEffect(() => {
-    console.log('Next Adventures:', nextAdventures);
-    console.log('Popular Routes:', popularRoutes);
-    console.log('Adventures Error:', adventuresError);
-    console.log('Routes Error:', routesError);
-  }, [nextAdventures, popularRoutes, adventuresError, routesError]);
 
   const handleTourPress = (tourId: string) => {
     router.push(`/tour-detail?id=${tourId}`);
@@ -88,9 +90,16 @@ export default function HomeScreen() {
     }));
   }, [popularRoutes]);
 
+  const CATEGORY_MAP: Record<string, string> = {
+    brunch: 'food',
+    sunset: 'nature',
+    hidden: 'all',
+    culture: 'culture',
+  };
+
   const handleCategoryPress = (categoryId: string) => {
-    console.log('Category pressed:', categoryId);
-    // TODO: Navigate to category filtered tours
+    const exploreCategory = CATEGORY_MAP[categoryId] || 'all';
+    router.push(`/(tabs)/explore?category=${exploreCategory}`);
   };
 
   const handleRetry = () => {
@@ -145,9 +154,7 @@ export default function HomeScreen() {
         contentContainerStyle={styles.scrollContent}
       >
         <HomeHeader
-          userName="Alex"
-          hasNotification
-          onProfilePress={() => router.push('/(tabs)/profile')}
+          onProfilePress={handleProfilePress}
           onSettingsPress={() => router.push('/(tabs)/settings')}
         />
 
@@ -158,11 +165,14 @@ export default function HomeScreen() {
         <View style={styles.searchContainer}>
           <FloatingSearchBar
             placeholder="Where do you want to go?"
-            onFilterPress={() => console.log('Filter pressed')}
+            onFilterPress={() => router.push('/(tabs)/explore')}
           />
         </View>
 
-        <QuickStartCategories onCategoryPress={handleCategoryPress} />
+        <QuickStartCategories
+          onCategoryPress={handleCategoryPress}
+          onSeeAllPress={() => router.push('/(tabs)/explore')}
+        />
 
         {featuredTours.length > 0 && (
           <FeaturedToursSection
